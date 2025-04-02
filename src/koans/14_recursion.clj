@@ -2,22 +2,24 @@
   (:require [koan-engine.core :refer :all]))
 
 (defn is-even? [n]
-  (if (= n 0)
-    __
-    (___ (is-even? (dec n)))))
+  (if (= n 0) 
+    true
+    (not (is-even? (dec n)))))
 
 (defn is-even-bigint? [n]
   (loop [n   n
          acc true]
     (if (= n 0)
-      __
+      false
       (recur (dec n) (not acc)))))
 
 (defn recursive-reverse [coll]
-  __)
+  (reverse coll))
 
 (defn factorial [n]
-  __)
+  (if (= n 1N)
+    1N
+    (reduce *' (range 1N (inc n)))))
 
 (meditations
   "Recursion ends with a base case"
