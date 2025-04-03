@@ -33,7 +33,7 @@
   (= 'hello (symbol "hello"))
 
   "What could be equivalent to nothing?"
-  (= nil)
+  (= nil nil)
 
   "When things cannot be equal, they must be different"
   (not= :fill-in-the-blank "hello"))
