@@ -37,3 +37,36 @@
 
   "When things cannot be equal, they must be different"
   (not= :fill-in-the-blank "hello"))
+
+;; Playground
+
+
+; Write a function that takes a list and returns a map where the keys are the distinct elements in the list, and the values are the number of times each element appears.
+
+(defn group-frequencies [coll]
+  (reduce (fn [acc v] (if (get acc v) (update acc v inc) (assoc acc v 1))) {} coll))
+  
+  ;; (group-frequencies [1 2 2 3 3 3])
+;; => {1 1, 2 2, 3 3}
+
+
+;; Write a function that takes a list and returns a new list containing only the elements that appear more than once in the original list.
+
+(defn filter-duplicates [coll]
+      (let [freqs (frequencies coll)]
+      (filter (fn [v] (< 1 (freqs v)))
+              coll))
+
+;{1 1 2 2 3 3 4 1}
+
+(filter-duplicates [1 2 2 3 3 3 4])
+;; => [2 2 3 3 3]
+
+(filter-duplicates [:a :b :a :c])
+;; => [:a :a]
+
+(filter-duplicates [1 2 3])
+;; => []
+
+(filter-duplicates [])
+;; => []
