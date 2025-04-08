@@ -38,7 +38,7 @@
   "When things cannot be equal, they must be different"
   (not= :fill-in-the-blank "hello"))
 
-;; Playground
+;; ChatGPT problem-solving
 
 
 ; Write a function that takes a list and returns a map where the keys are the distinct elements in the list, and the values are the number of times each element appears.
@@ -55,7 +55,7 @@
 (defn filter-duplicates [coll]
       (let [freqs (frequencies coll)]
       (filter (fn [v] (< 1 (freqs v)))
-              coll))
+              coll)))
 
 ;{1 1 2 2 3 3 4 1}
 
@@ -70,3 +70,41 @@
 
 (filter-duplicates [])
 ;; => []
+
+;Write a function that takes a map and returns a new map with keys and values swapped.
+
+(defn flip-map [map]
+      (reduce (fn [acc [k v]] (assoc acc v k)) {} map))
+
+(flip-map {:a 1 :b 2 :c 3})
+;; => {1 :a, 2 :b, 3 :c}
+
+(flip-map {"apple" "red" "banana" "yellow"})
+;; => {"red" "apple", "yellow" "banana"}
+
+(flip-map {})
+;; => {}
+
+
+;Write a function that takes two arguments:
+;
+;a function f
+;
+;a collection coll
+;
+;…and returns a map grouping the values in coll by the result of applying f to each value.
+
+;;either assoc with [1] or conj?
+(defn group-by-fn [f coll]
+      (reduce (fn [acc newItem] (if(get acc (f newItem))
+                                  (update acc (f newItem) conj newItem)
+                                  (assoc acc (f newItem) [newItem]))) {} coll))
+
+(group-by-fn odd? [1 2 3 4 5])
+;; => {true [1 3 5], false [2 4]}
+
+(group-by-fn #(mod % 3) [1 2 3 4 5 6])
+;; => {1 [1 4], 2 [2 5], 0 [3 6]}
+
+(group-by-fn count ["cat" "hi" "mouse" "yo"])
+;; => {3 ["cat"], 2 ["hi" "yo"], 5 ["mouse"]}
